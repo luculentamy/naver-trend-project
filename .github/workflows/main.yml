@@ -1,0 +1,22 @@
+name: Run Python Script
+
+on:
+  workflow_dispatch:   # 수동 실행 버튼
+  schedule:
+    - cron: '0 0 * * *'   # 매일 UTC 00:00 실행
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run script
+        run: python main.py

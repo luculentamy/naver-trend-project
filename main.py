@@ -120,24 +120,36 @@ naver_df['year_week'] = naver_df["date"].dt.strftime("%Y-%U")
 #     value_name="google_ratio"
 # )
 
+# # -------------------------
+# # MERGE(Draft)
+# # -------------------------
+
+# final_df = pd.merge(
+#     google_df,
+#     naver_df[["year_week", "keyword", "naver_ratio"]],
+#     how="left",
+#     left_on=["year_week", "keyword"]
+# )
+
+# # 정렬
+# final_df = final_df.sort_values(["keyword", "date"])
+
+# final_df.to_csv(
+#     "trend_result.csv", 
+#     index=False, 
+#     encoding="utf-8-sig"
+# )
+
 # -------------------------
-# MERGE
+# 'naver_df' 출력
 # -------------------------
 
-final_df = pd.merge(
-    # google_df,
-    naver_df[["year_week", "keyword", "naver_ratio"]],
-    how="left",
-    left_on=["year_week", "keyword"]
-)
+naver_df = naver_df.sort_values(["keyword", "date"])
 
-# 정렬
-final_df = final_df.sort_values(["keyword", "date"])
-
-final_df.to_csv(
+naver_df.to_csv(
     "trend_result.csv", 
     index=False, 
     encoding="utf-8-sig"
 )
 
-print("✅ trend_result.csv 저장 완료")
+print("✅ NaverTrend_result.csv 저장 완료")

@@ -81,7 +81,16 @@ naver_df['year_week'] = naver_df["date"].dt.strftime("%Y-%U")
 # GOOGLE TRENDS
 # -------------------------
 
-pytrends = TrendReq(hl='ko-KR', tz=540)
+pytrends = TrendReq(
+    hl="ko-KR",
+    tz=540,
+    timeout=(10,25),
+    retries=2,
+    backoff_factor=0.5
+)
+
+import time
+time.sleep(5)
 
 pytrends.build_payload(
         KEYWORDS, 

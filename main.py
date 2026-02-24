@@ -33,3 +33,6 @@ response = requests.post(url, headers=headers, data=json.dumps(data))
 
 print(response.status_code)
 print(response.json())
+
+print("CLIENT ID:", client_id)
+print("CLIENT Secret:", client_secret)

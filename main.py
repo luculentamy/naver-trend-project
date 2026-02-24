@@ -81,51 +81,51 @@ naver_df['year_week'] = naver_df["date"].dt.strftime("%Y-%U")
 # GOOGLE TRENDS
 # -------------------------
 
-pytrends = TrendReq(
-    hl="ko-KR",
-    tz=540,
-    timeout=(10,25),
-    retries=2,
-    backoff_factor=0.5
-)
+# pytrends = TrendReq(
+#     hl="ko-KR",
+#     tz=540,
+#     timeout=(10,25),
+#     retries=2,
+#     backoff_factor=0.5
+# )
 
-import time
-time.sleep(5)
+# import time
+# time.sleep(5)
 
-pytrends.build_payload(
-        KEYWORDS, 
-        timeframe='today 2-y', 
-        geo='KR'
-)
+# pytrends.build_payload(
+#         KEYWORDS, 
+#         timeframe='today 2-y', 
+#         geo='KR'
+# )
 
-google_df = pytrends.interest_over_time()
+# google_df = pytrends.interest_over_time()
 
-if google_df.empty:
-    raise Exception("❌ Google Trends 데이터 없음")
+# if google_df.empty:
+#     raise Exception("❌ Google Trends 데이터 없음")
 
-google_df = google_df.reset_index()
+# google_df = google_df.reset_index()
 
-# isPartial 제거
-google_df = google_df.drop(columns=["isPartial"], errors="ignore")
+# # isPartial 제거
+# google_df = google_df.drop(columns=["isPartial"], errors="ignore")
 
-# 날짜 처리
-google_df["date"] = pd.to_datetime(google_df["date"])
-google_df["year_week"] = google_df["date"].dt.strftime("%Y-%U")
+# # 날짜 처리
+# google_df["date"] = pd.to_datetime(google_df["date"])
+# google_df["year_week"] = google_df["date"].dt.strftime("%Y-%U")
 
-# Wide → Long 변환
-google_df = google_df.melt(
-    id_vars=["date", "year_week"],
-    value_vars=KEYWORDS,
-    var_name="keyword",
-    value_name="google_ratio"
-)
+# # Wide → Long 변환
+# google_df = google_df.melt(
+#     id_vars=["date", "year_week"],
+#     value_vars=KEYWORDS,
+#     var_name="keyword",
+#     value_name="google_ratio"
+# )
 
 # -------------------------
 # MERGE
 # -------------------------
 
 final_df = pd.merge(
-    google_df,
+    # google_df,
     naver_df[["year_week", "keyword", "naver_ratio"]],
     how="left",
     left_on=["year_week", "keyword"]

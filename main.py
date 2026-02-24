@@ -147,7 +147,7 @@ naver_df['year_week'] = naver_df["date"].dt.strftime("%Y-%U")
 naver_df = naver_df.sort_values(["keyword", "date"])
 
 naver_df.to_csv(
-    "trend_result.csv", 
+    "NaverTrend_result.csv", 
     index=False, 
     encoding="utf-8-sig"
 )
